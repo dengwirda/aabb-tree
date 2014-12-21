@@ -39,14 +39,14 @@ function demo1
 '   overlap as a result. Objects in the collection are co-\n'...
 '   ntained in a single node only. \n\n']);
 
-    ffid = fopen('airfoil.node_2d','r');
+    ffid = fopen('test/airfoil.node_2d','r');
     data = fscanf(ffid,'%e,%e,%i \r\n');
     fclose(ffid);
     
     pp = [data(1:3:end), ...
           data(2:3:end)] ;
       
-    ffid = fopen('airfoil.tria_2d','r');
+    ffid = fopen('test/airfoil.tria_2d','r');
     data = fscanf(ffid,'%u,%u,%u,%u \r\n');
     fclose(ffid);
     
@@ -89,7 +89,7 @@ function demo2
 '   ding-boxes of a given collection. It is not limited to\n'...
 '   simplexes (triangles, tetrahedrons, etc).\n\n']);
 
-    ffid = fopen('femur.node_3d','r');
+    ffid = fopen('test/femur.node_3d','r');
     data = fscanf(ffid,'%e,%e,%e,%i,%e \r\n');
     fclose(ffid);
     
@@ -97,7 +97,7 @@ function demo2
           data(2:5:end), ...
           data(3:5:end)] ;
       
-    ffid = fopen('femur.tria_3d','r');
+    ffid = fopen('test/femur.tria_3d','r');
     data = fscanf(ffid,'%u,%u,%u,%i \r\n');
     fclose(ffid);
     
