@@ -43,6 +43,12 @@ function [tr] = maketree(rp,varargin)
 %
 %   See also DRAWTREE, FINDPTS, FINDRAY, FINDBOX
 
+% Please the following for additional information:
+%
+%   Engwirda, D. Unstructured tessellation and mesh generat-
+%   ion. Ph.D. Thesis, School of Mathematics and Statistics, 
+%   Univ. of Sydney, 2014.
+
 %   Darren Engwirda : 2014 --
 %   Email           : engwirda@mit.edu
 %   Last updated    : 18/12/2014
