@@ -1,6 +1,8 @@
 function drawtree(tr,varargin)
 %DRAWTREE draw an aabb-tree generated using MAKETREE.
 %   DRAWTREE(TR) draws the tree TR for cases in R^2 and R^3.
+%
+%   See also MAKETREE
 
 %   Darren Engwirda : 2014 --
 %   Email           : engwirda@mit.edu
@@ -11,17 +13,16 @@ function drawtree(tr,varargin)
         ~isfield(tr,'xx') || ...
         ~isfield(tr,'ii') || ...
         ~isfield(tr,'ll') )
-        error('drawtree:incorrectInputClass','Incorrect aabb-tree.') ;
+        error('drawtree:incorrectInputClass', ...
+            'Incorrect aabb-tree.') ;
     end
 
+%----------------------------------------- find "leaf" nodes
+    lf = ~cellfun('isempty', tr.ll) ;
+    
     fc = [.95,.95,.55] ;
     ec = [.15,.15,.15] ;
     
-%----------------------------------------- find "leaf" nodes
-    lf = false(size(tr.ii,1),1) ;
-    for ti = +1 : size(tr.ii,1)
-        lf(ti) = tr.ii(ti,2)==+0;
-    end
 %-------------------------- draw all "leaf" nodes as patches
     switch (size(tr.xx,2))
         case 4
@@ -68,10 +69,14 @@ function drawtree(tr,varargin)
             
         otherwise
 %--------------------------- what to do with a tree in R^d!?
-        error('drawtree:unsupported','Unsupported tree dimensionality.');
+        error('scantree:unsupportedDimension', ...
+            'Unsupported tree dimensionality.') ;
     end
     
     patch('faces',bb,'vertices',pp,'facecolor',fc,...
         'edgecolor',ec,'facealpha',+.2);
     
 end
+
+
+
