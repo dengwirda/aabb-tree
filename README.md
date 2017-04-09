@@ -4,6 +4,11 @@ A d-dimensional `aabb-tree` implementation in <a href="http://www.mathworks.com"
 
 The `AABB-TREE` toolbox provides d-dimensional `aabb-tree` construction and search for arbitrary collections of spatial objects. These tree-based indexing structures are useful when seeking to implement efficient spatial queries, reducing the complexity of intersection tests between collections of objects. Specifically, given two "well-distributed" collections `P` and `Q`, use of `aabb`-type acceleration allows the set of intersections to be computed in `O(|P|*log(|Q|))`, which is typically a significant improvement over the `O(|P|*|Q|)` operations required by "brute-force" methods. 
 
+<p align="center">
+  <img src = "../master/test-data/aabb-tree-1-small.jpg"> &nbsp
+  <img src = "../master/test-data/aabb-tree-2-small.jpg">
+</p>
+
 Given a collection of objects, an `aabb-tree` partitions the axis-aligned bounding-boxes (`AABB`'s) associated with the elements in the collection into a (binary) "tree" -- a hierarchy of "nodes" (hyper-rectangles) that each store a subset of the collection. In contrast to other geometric tree types (`quadtrees`, `kd-trees`, etc), `aabb-trees` are applicable to collections of general objects, rather than just points. 
 
 # `Starting Out`
