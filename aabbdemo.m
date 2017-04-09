@@ -48,7 +48,7 @@ function demo1
     filename = mfilename('fullpath');
     filepath = fileparts( filename );
 
-    addpath([filepath, 'mesh-file']);
+    addpath([filepath,'/mesh-file']);
 
    [geom] = readmsh([filepath,'/test-data/airfoil.msh']);
     
@@ -91,7 +91,7 @@ function demo2
     filename = mfilename('fullpath');
     filepath = fileparts( filename );
 
-    addpath([filepath, 'mesh-file']);
+    addpath([filepath,'/mesh-file']);
 
    [geom] = readmsh([filepath,'test-data/veins.msh']);
     
