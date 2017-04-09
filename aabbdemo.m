@@ -93,7 +93,7 @@ function demo2
 
     addpath([filepath,'/mesh-file']);
 
-   [geom] = readmsh([filepath,'test-data/veins.msh']);
+   [geom] = readmsh([filepath,'/test-data/veins.msh']);
     
     pp = geom.point.coord(:,1:3);
     tt = geom.tria3.index(:,1:3);
