@@ -45,9 +45,12 @@ function demo1
 '   overlap as a result. Objects in the collection are co-\n'...
 '   ntained in a single node only. \n\n']);
 
-    addpath('mesh-file');
+    filename = mfilename('fullpath');
+    filepath = fileparts( filename );
 
-   [geom] = readmsh('test-data/airfoil.msh');
+    addpath([filepath, 'mesh-file']);
+
+   [geom] = readmsh([filepath,'/test-data/airfoil.msh']);
     
     pp = geom.point.coord(:,1:2);
     tt = geom.tria3.index(:,1:3);
@@ -85,9 +88,12 @@ function demo2
 '   ding-boxes of a given collection. It is not limited to\n'...
 '   simplexes (triangles, tetrahedrons, etc).\n\n']);
 
-    addpath('mesh-file');
+    filename = mfilename('fullpath');
+    filepath = fileparts( filename );
 
-   [geom] = readmsh('test-data/veins.msh');
+    addpath([filepath, 'mesh-file']);
+
+   [geom] = readmsh([filepath,'test-data/veins.msh']);
     
     pp = geom.point.coord(:,1:3);
     tt = geom.tria3.index(:,1:3);
