@@ -7,7 +7,9 @@ The `AABB-TREE` toolbox provides d-dimensional `aabb-tree` construction and sear
 Given a collection of objects, an `aabb-tree` partitions the axis-aligned bounding-boxes (`AABB`'s) associated with the elements in the collection into a (binary) "tree" -- a hierarchy of "nodes" (hyper-rectangles) that each store a subset of the collection. In contrast to other geometric tree types (`quadtrees`, `kd-trees`, etc), `aabb-trees` are applicable to collections of general objects, rather than just points. 
 
 <p align="center">
-  <img src = "../master/test-data/aabb-tree-1-small.png"> &nbsp
+  <img src = "../master/test-data/aabb-tree-1-small.png">
+  <br>
+  <br>
   <img src = "../master/test-data/aabb-tree-2-small.png">
 </p>
 
