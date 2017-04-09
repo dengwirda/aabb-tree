@@ -9,7 +9,6 @@ Given a collection of objects, an `aabb-tree` partitions the axis-aligned boundi
 <p align="center">
   <img src = "../master/test-data/aabb-tree-1-small.png">
   <br>
-  <br>
   <img src = "../master/test-data/aabb-tree-2-small.png">
 </p>
 
