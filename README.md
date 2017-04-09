@@ -23,6 +23,6 @@ aabbdemo(3); % compare a "fast" "aabb-accelerated" search with a "slow" brute-fo
 ````
 # `Attribution!`
 
-The tree-construction and search methods employed in the `AABB-TREE` library are described in further detail here: 
+`AABB-TREE` is used extensively in the grid-generator <a href="https://github.com/dengwirda/mesh2d">`MESH2D`</a>. The tree-construction and search methods employed in the `AABB-TREE` library are described in further detail here: 
 
 `[1]` - Darren Engwirda, <a href="http://hdl.handle.net/2123/13148">Locally-optimal Delaunay-refinement and optimisation-based mesh generation</a>, Ph.D. Thesis, School of Mathematics and Statistics, The University of Sydney, September 2014.
