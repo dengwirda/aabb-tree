@@ -1,10 +1,5 @@
 # `AABB-Tree: Spatial Indexing in MATLAB`
 
-<p align="center">
-  <img src = "../master/test-data/aabbtree.jpg">
-  <img src = "../master/test-data/aabbtree.jpg">
-</p>
-
 A d-dimensional `aabb-tree` implementation in <a href="http://www.mathworks.com">`MATLAB`</a> / <a href="https://www.gnu.org/software/octave">`OCTAVE`</a>.
 
 The `AABB-TREE` toolbox provides d-dimensional `aabb-tree` construction and search for arbitrary collections of spatial objects. These tree-based indexing structures are useful when seeking to implement efficient spatial queries, reducing the complexity of intersection tests between collections of objects. Specifically, given two "well-distributed" collections `P` and `Q`, use of `aabb`-type acceleration allows the set of intersections to be computed in `O(|P|*log(|Q|))`, which is typically a significant improvement over the `O(|P|*|Q|)` operations required by "brute-force" methods. 
