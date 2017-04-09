@@ -2,6 +2,7 @@
 
 <p align="center">
   <img src = "../master/test-data/aabbtree.jpg">
+  <img src = "../master/test-data/aabbtree.jpg">
 </p>
 
 A d-dimensional `aabb-tree` implementation in <a href="http://www.mathworks.com">`MATLAB`</a> / <a href="https://www.gnu.org/software/octave">`OCTAVE`</a>.
