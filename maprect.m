@@ -16,11 +16,11 @@ function [tm,im] = maprect(tr,pr)
 %   Specifically, nodes in the list IM.LL{JJ} intersect with
 %   the item IM.II(JJ).
 %
-%   See also QUERYSET, MAPVERT, MAKTREE
+%   See also QUERYSET, MAPVERT, MAKETREE
 
 %   Darren Engwirda : 2017 --
 %   Email           : engwirda@mit.edu
-%   Last updated    : 06/04/2017
+%   Last updated    : 09/04/2017
 
 %----------------------- call SCANTREE to do the actual work
     if (nargout == +1)
