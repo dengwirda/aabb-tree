@@ -16,7 +16,7 @@ function [tm,im] = mapvert(tr,pi)
 %   Specifically, nodes in the list IM.LL{JJ} intersect with
 %   the item IM.II(JJ).
 %
-%   See also QUERYSET, MAPRECT, MAKTREE
+%   See also QUERYSET, MAPRECT, MAKETREE
 
 %   Darren Engwirda : 2014 --
 %   Email           : engwirda@mit.edu
