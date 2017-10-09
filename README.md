@@ -1,4 +1,4 @@
-# `AABB-Tree: Spatial Indexing in MATLAB`
+## `AABB-Tree: Spatial Indexing in MATLAB`
 
 A d-dimensional `aabb-tree` implementation in <a href="http://www.mathworks.com">`MATLAB`</a> / <a href="https://www.gnu.org/software/octave">`OCTAVE`</a>.
 
@@ -13,7 +13,7 @@ Given a collection of objects, an `aabb-tree` partitions the axis-aligned boundi
   <img src = "../master/test-data/aabb-tree-2-small.png">
 </p>
 
-# `Starting Out`
+## `Starting Out`
 
 After downloading and unzipping the current <a href="https://github.com/dengwirda/aabb-tree/archive/master.zip">repository</a>, navigate to the installation directory within <a href="http://www.mathworks.com">`MATLAB`</a> / <a href="https://www.gnu.org/software/octave">`OCTAVE`</a> and run the set of examples contained in `aabbdemo.m`:
 ````
@@ -21,7 +21,7 @@ aabbdemo(1); % build a tree for a 2-dimensional triangulation.
 aabbdemo(2); % build a tree for a 3-dimensional triangulation.
 aabbdemo(3); % compare a "fast" "aabb-accelerated" search with a "slow" brute-force computation.
 ````
-# `Attribution!`
+## `Attribution!`
 
 `AABB-TREE` is used extensively in the grid-generator <a href="https://github.com/dengwirda/mesh2d">`MESH2D`</a>. The tree-construction and search methods employed in the `AABB-TREE` library are described in further detail here: 
 
