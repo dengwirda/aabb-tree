@@ -50,49 +50,77 @@ function [tr] = maketree(rp,varargin)
 
 % Please see the following for additional information:
 %
-%   Engwirda, D. "Locally-optimal Delaunay-refinement and 
+%   Darren Engwirda, "Locally-optimal Delaunay-refinement & 
 %   optimisation-based mesh generation". Ph.D. Thesis, Scho-
 %   ol of Mathematics and Statistics, Univ. of Sydney, 2014:
 %   http://hdl.handle.net/2123/13148
 
 %   Darren Engwirda : 2014 --
-%   Email           : engwirda@mit.edu
-%   Last updated    : 08/04/2017
+%   Email           : de2363@columbia.edu
+%   Last updated    : 08/10/2017
 
     tr.xx = []; tr.ii = []; tr.ll = {}; op = [];
     
 %------------------------------ quick return on empty inputs
     if (isempty(rp)), return; end
+    
 %---------------------------------------------- basic checks    
     if (~isnumeric(rp))
         error('maketree:incorrectInputClass', ...
             'Incorrect input class.');
     end
+    
 %---------------------------------------------- basic checks
     if (nargin < +1 || nargin > +2)
         error('maketree:incorrectNoOfInputs', ...
             'Incorrect number of inputs.');
     end
-    if (ndims(rp) ~= +2 || mod(size(rp,2),+2) ~= +0)
+    if (ndims(rp) ~= +2 || ...
+            mod(size(rp,2),2)~= +0)
         error('maketree:incorrectDimensions', ...
             'Incorrect input dimensions.');
     end
+    
 %------------------------------- extract user-defined inputs
     if (nargin >= +2), op = varargin{1}; end
+    
+    isoctave = exist( ...
+        'OCTAVE_VERSION','builtin') > 0;
+    
+    if (isoctave)
+    
+    %-- faster for OCTAVE with large tree block size; slower
+    %-- loop execution...
+    
+        NOBJ = +1024 ; 
+        
+    else
+    
+    %-- faster for MATLAB with small tree block size; better
+    %-- loop execution... 
+    
+        NOBJ =  + 32 ;
+        
+    end
+    
 %--------------------------------------- user-defined inputs
     if (~isstruct(op))
-        op.nobj = +32;
+        
+        op.nobj = NOBJ ;
         op.long = .75;
         op.vtol = .55;
+        
     else
+    
     %-------------------------------- bound population count
         if (isfield(op,'nobj'))
             if (op.nobj <= +0 )
                 error('Invalid options.') ;
             end
         else
-            op.nobj = +32;
+            op.nobj = NOBJ ;
         end
+        
     %-------------------------------- bound "long" tolerance
         if (isfield(op,'long'))
             if (op.long < +.0 || op.long > +1.)
@@ -101,6 +129,7 @@ function [tr] = maketree(rp,varargin)
         else
             op.long = .75; 
         end
+        
     %-------------------------------- bound "long" tolerance
         if (isfield(op,'vtol'))
             if (op.vtol < +.0 || op.vtol > +1.)
@@ -109,6 +138,7 @@ function [tr] = maketree(rp,varargin)
         else
             op.vtol = .55; 
         end
+        
     end
     
 %---------------------------------- dimensions of rectangles
@@ -116,7 +146,8 @@ function [tr] = maketree(rp,varargin)
     ni = size(rp,1) ;
     
 %------------------------------------------ alloc. workspace
-    xx = zeros(ni*1,2*nd);
+    xl = zeros(ni*1,1*nd);
+    xr = zeros(ni*1,1*nd);
     ii = zeros(ni*1,2);
     ll = cell (ni*1,1);
     ss = zeros(ni*1,1);
@@ -128,7 +159,11 @@ function [tr] = maketree(rp,varargin)
     rv((1:nd)+nd*+1) = true ;
 
 %----------------------------------------- inflate rectangle
-    rd = rp(:,rv)-rp(:,lv);
+    r0 = min(rp(:,lv),[],1) ;
+    r1 = max(rp(:,rv),[],1) ;
+   
+    rd = repmat(r1-r0,ni,1) ;
+    
     rp(:,lv) = ...
     rp(:,lv) - rd * eps^.8;
     rp(:,rv) = ...
@@ -146,8 +181,8 @@ function [tr] = maketree(rp,varargin)
     ii(1,1) = +0 ;
     ii(1,2) = +0 ;
 %------------------------------ root contains all rectangles
-    xx(1,lv) = min(rp(:,lv),[],1);
-    xx(1,rv) = max(rp(:,rv),[],1);
+    xl(1,:) = min(rp(:,lv),[],1);
+    xr(1,:) = max(rp(:,rv),[],1);
     
 %-- main loop : divide nodes until all constraints satisfied
     ss(+1) = +1; ns = +1; nn = +1;   
@@ -162,8 +197,8 @@ function [tr] = maketree(rp,varargin)
     %--------------------------- set of rectangles in parent
         li = ll{ni} ;    
     %--------------------------- split plane on longest axis
-        dd = xx(ni,rv) ...
-           - xx(ni,lv) ;
+        dd = xr(ni,:) ...
+           - xl(ni,:) ;
        [dd,ia] = sort(dd);
   
         for id = nd : -1 : +1
@@ -206,24 +241,24 @@ function [tr] = maketree(rp,varargin)
         end
         
     %-------------------------------- finalise node position
-        xx(n1,lv) = ...
+        xl(n1,:) = ...
             min(rp(l1,lv),[],1) ;
-        xx(n1,rv) = ...
+        xr(n1,:) = ...
             max(rp(l1,rv),[],1) ;
-        xx(n2,lv) = ...
+        xl(n2,:) = ...
             min(rp(l2,lv),[],1) ;
-        xx(n2,rv) = ...
+        xr(n2,:) = ...
             max(rp(l2,rv),[],1) ;
             
     %--------------------------- push child nodes onto stack        
-        if (length(ll{ni}) <= op.nobj)
+        if (length(li) <= op.nobj )
         
-            vi = prod(xx(ni,rv) ... % upper d-dim "vol."
-                    - xx(ni,lv) ) ;
-            v1 = prod(xx(n1,rv) ... % lower d-dim "vol."
-                    - xx(n1,lv) ) ; 
-            v2 = prod(xx(n2,rv) ...
-                    - xx(n2,lv) ) ;
+            vi = prod(xr(ni,:) ...  % upper d-dim "vol."
+                    - xl(ni,:) ) ;
+            v1 = prod(xr(n1,:) ...  % lower d-dim "vol."
+                    - xl(n1,:) ) ; 
+            v2 = prod(xr(n2,:) ...
+                    - xl(n2,:) ) ;
         
             if (v1+v2 < op.vtol*vi)
                
@@ -262,12 +297,13 @@ function [tr] = maketree(rp,varargin)
         
     end
 %----------------------------------------------- trim alloc.
-    xx = xx(1:nn,:);
-    ii = ii(1:nn,:);
-    ll(nn+1:end) = [] ;
+    xl = xl(1:nn,:) ;
+    xr = xr(1:nn,:) ;
+    ii = ii(1:nn,:) ;
+    ll = ll(1:nn,:) ;
     
 %----------------------------------------------- pack struct
-    tr.xx = xx ; 
+    tr.xx =[xl, xr] ;     
     tr.ii = ii ; 
     tr.ll = ll ;
     
