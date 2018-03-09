@@ -8,8 +8,8 @@ function aabbdemo(varargin)
 %   See also MAKETREE, DRAWTREE, QUERYSET, MAPVERT, MAPRECT
 
 %   Darren Engwirda : 2014 --
-%   Email           : engwirda@mit.edu
-%   Last updated    : 08/04/2017
+%   Email           : darren.engwirda@columbia.edu
+%   Last updated    : 09/03/2018
 
     if (nargin>=1) 
         id = varargin{1}; 
@@ -50,7 +50,7 @@ function demo1
 
     addpath([filepath,'/mesh-file']);
 
-   [geom] = readmsh([filepath,'/test-data/airfoil.msh']);
+   [geom] = loadmsh([filepath,'/test-data/airfoil.msh']);
     
     pp = geom.point.coord(:,1:2);
     tt = geom.tria3.index(:,1:3);
@@ -93,7 +93,7 @@ function demo2
 
     addpath([filepath,'/mesh-file']);
 
-   [geom] = readmsh([filepath,'/test-data/veins.msh']);
+   [geom] = loadmsh([filepath,'/test-data/veins.msh']);
     
     pp = geom.point.coord(:,1:3);
     tt = geom.tria3.index(:,1:3);
